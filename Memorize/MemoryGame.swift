@@ -8,17 +8,17 @@
 import Foundation
 
 struct MemoryGame<CardContent> {
-    
+
     var cards: Array<Card>
-    
+
     init(pairs: Int, makeCardContent: (Int) -> CardContent) {
         cards = Array<Card>()
-        
         for index in 0..<pairs {
             let content = makeCardContent(index)
             cards.append(Card(id: index * 2, content: content))
             cards.append(Card(id: index * 2 + 1, content: content))
         }
+        cards.shuffle()
     }
 
     func choose(_ card: Card) {
@@ -28,9 +28,9 @@ struct MemoryGame<CardContent> {
     struct Card: Identifiable {
         var id: Int
         
-        var isFaceUp: Bool = false
+        var isFaceUp: Bool = true
         var isMatched: Bool = false
         var content: CardContent
     }
-    
+
 }

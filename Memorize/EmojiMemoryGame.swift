@@ -13,7 +13,6 @@ func makeCardContent(index: Int) -> String {
 
 class EmojiMemoryGame {
     private(set) var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
-    static let `default` = EmojiMemoryGame()
         
     static func createMemoryGame() -> MemoryGame<String> {
         let emojis: Array<String> = ["🦇", "💩", "🐙"]
