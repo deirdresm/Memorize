@@ -11,22 +11,24 @@ func makeCardContent(index: Int) -> String {
     return "😡"
 }
 
-class EmojiMemoryGame {
-    private(set) var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
-        
-    static func createMemoryGame() -> MemoryGame<String> {
-        let emojis: Array<String> = ["🦇", "💩", "🐙"]
-        return MemoryGame<String>(pairs: emojis.count) { index in
+class EmojiMemoryGame: ObservableObject {
+    typealias Game = MemoryGame<String>
+
+    @Published var game: Game = EmojiMemoryGame.createGame()
+    static var emojis: Array<String> = ["🦇", "💩", "🐙"] // moved outside for testing
+
+    static func createGame() -> Game {
+
+        return Game(pairs: emojis.count) { index in
             return emojis[index]
         }
     }
-    
-    var cards: Array<MemoryGame<String>.Card> {
-        model.cards
-    }
-    
-    func choose(_ card: MemoryGame<String>.Card) {
-        model.choose(card)
+
+    var cards: Array<Game.Card> {
+        game.cards
     }
 
+    func choose(_ cardIndex: Int) {
+        game.choose(cardIndex)
+    }
 }

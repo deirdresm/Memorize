@@ -29,12 +29,13 @@ struct CardView: View {
 }
 
 struct ContentView: View {
-    var viewModel: EmojiMemoryGame
+    @ObservedObject var viewModel: EmojiMemoryGame
+    
     var body: some View {
         HStack {
-            ForEach(viewModel.cards) { card in
-                CardView(card: card)
-                    .onTapGesture(perform: { viewModel.choose(card)
+            ForEach(0 ..< viewModel.cards.count) { i in
+                CardView(card: viewModel.cards[i])
+                    .onTapGesture(perform: { viewModel.choose(i)
                     })
             }
         }
