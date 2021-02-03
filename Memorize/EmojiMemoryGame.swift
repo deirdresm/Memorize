@@ -15,10 +15,10 @@ class EmojiMemoryGame: ObservableObject {
     typealias Game = MemoryGame<String>
 
     @Published var game: Game = EmojiMemoryGame.createGame()
-    static var emojis: Array<String> = ["🦇", "💩", "🐙"] // moved outside for testing
+    static var emojis: Array<String> = ["🧜🏻‍♀️", "🐬", "🐙", "🌈", "🏄🏻‍♀️"] // moved outside for testing
 
-    static func createGame() -> Game {
-
+    static func createGame(_ numPairs: Int = 0) -> Game {
+        let pairs = numPairs >= 2 ? numPairs <= 5 ? numPairs : Int.random(in: 2...5) : Int.random(in: 2...5)
         return Game(pairs: emojis.count) { index in
             return emojis[index]
         }

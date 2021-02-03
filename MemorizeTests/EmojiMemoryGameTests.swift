@@ -21,14 +21,35 @@ class MemorizeTests: XCTestCase {
     func testInitializationCounts() throws {
         
         let game = EmojiMemoryGame()
-        let emojiLength = EmojiMemoryGame.emojis.count
-        let expectedCount = emojiLength * 2
-        // verify we have two instances per emoji
-        XCTAssertEqual(emojiLength, expectedCount)
+
+        // verify we have 2-5 pairs of cards
+        XCTAssertGreaterThanOrEqual(game.cards.count, 2*2)
+        XCTAssertLessThanOrEqual(game.cards.count, 5*2)
+    }
+    
+    func testShuffling() throws {
+        var randomness = 0
+        let game = EmojiMemoryGame()
+
+        // verify that at least most of them aren't the same as their pair card
         
-        XCTAssertTrue(game.cards[0].isFaceUp)
-        game.choose(game.cards[0])
+        for index in 0 ..< game.cards.count/2 {
+            if game.cards[index * 2] == game.cards[index * 2 + 1] {
+                randomness -= 1
+            } else {
+                randomness += 1
+            }
+        }
+        XCTAssertGreaterThanOrEqual(randomness, 0)
+    }
+    
+    func testCardToggling() throws {
+        let game = EmojiMemoryGame()
+
         XCTAssertFalse(game.cards[0].isFaceUp)
+        game.choose(0)
+        XCTAssertTrue(game.cards[0].isFaceUp)
+
     }
 
 /*    func testPerformanceExample() throws {

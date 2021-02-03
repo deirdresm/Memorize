@@ -18,13 +18,13 @@ struct CardView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 3.0)
                 Text(card.content)
-                    .font(.largeTitle)
             } else {
                 RoundedRectangle(cornerRadius: 10)
                     .fill()
             }
         }
         .foregroundColor(Color.orange)
+        .aspectRatio(0.6667, contentMode: .fit)
     }
 }
 
@@ -39,6 +39,7 @@ struct ContentView: View {
                     })
             }
         }
+        .font(viewModel.cards.count > 8 ? .title : .largeTitle)
         .padding()
     }
 }

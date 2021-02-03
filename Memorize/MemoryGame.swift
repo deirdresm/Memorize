@@ -22,11 +22,7 @@ class MemoryGame<CardContent> {
     }
 
     func choose(_ cardIndex: Int) {
-        print("card chosen: \(cardIndex)")
-        print("before: \(cards[cardIndex].isFaceUp)")
         cards[cardIndex].isFaceUp = !cards[cardIndex].isFaceUp
-        print("after: \(cards[cardIndex].isFaceUp)")
-        print("card chosen after: \(cards[cardIndex])")
     }
 
     struct Card: Identifiable, Equatable {
