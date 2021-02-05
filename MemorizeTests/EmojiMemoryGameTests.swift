@@ -9,7 +9,7 @@ import XCTest
 @testable import Memorize
 
 class MemorizeTests: XCTestCase {
-    
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -19,20 +19,20 @@ class MemorizeTests: XCTestCase {
     }
 
     func testInitializationCounts() throws {
-        
+
         let game = EmojiMemoryGame()
 
         // verify we have 2-5 pairs of cards
         XCTAssertGreaterThanOrEqual(game.cards.count, 2*2)
         XCTAssertLessThanOrEqual(game.cards.count, 5*2)
     }
-    
+
     func testShuffling() throws {
         var randomness = 0
         let game = EmojiMemoryGame()
 
         // verify that at least most of them aren't the same as their pair card
-        
+
         for index in 0 ..< game.cards.count/2 {
             if game.cards[index * 2] == game.cards[index * 2 + 1] {
                 randomness -= 1
@@ -42,14 +42,15 @@ class MemorizeTests: XCTestCase {
         }
         XCTAssertGreaterThanOrEqual(randomness, 0)
     }
-    
+
+    // Test that the toggling works in code.
     func testCardToggling() throws {
         let game = EmojiMemoryGame()
+        let card = game.cards[0]
 
         XCTAssertFalse(game.cards[0].isFaceUp)
-        game.choose(0)
+        game.choose(card)
         XCTAssertTrue(game.cards[0].isFaceUp)
-
     }
 
 /*    func testPerformanceExample() throws {
