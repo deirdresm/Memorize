@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct CardView: View {
-    var card: MemoryGame<String>.Card
+    // not updating if enclosed in a LazyVGrid unless I also push
+    // viewModel down the stack.
+    @ObservedObject var viewModel: EmojiMemoryGame
+    var cardIndex: Int
 
-    @ViewBuilder
+    private var card: MemoryGame<String>.Card {
+            viewModel.cards[cardIndex]
+    }
+
     var body: some View {
+
         ZStack {
             if card.isFaceUp {
                 RoundedRectangle(cornerRadius: 10)
@@ -41,11 +48,13 @@ struct EmojiGameView: View {
     var gridItems: [GridItem] = [GridItem(), GridItem(), GridItem()]
 
     var body: some View {
-        HStack {
+        VStack {
+            Text("Greetings EmojiGame Player")
             LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.cards) { card in
-                    CardView(card: card).onTapGesture {
-                        viewModel.choose(card)
+                ForEach(0 ..< viewModel.cards.count) { card in
+                    CardView(viewModel: viewModel, cardIndex: card)
+                    .onTapGesture {
+                        viewModel.choose(viewModel.cards[card])
                     }
                 }
             }
